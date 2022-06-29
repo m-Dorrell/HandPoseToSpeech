@@ -37,8 +37,10 @@ Detect Hand Pose -> Convert to Symbolic Textual Representation -> Text-To-Speech
 This architecture should be modular so that alternative methods can easily be added in. Therefore superclasses will be created to match each stage:
 
 1. Detection
-1. Extraction of Meaning
-1. Output of Meaning
+1. Interpretation
+1. Output
+
+Multiple interpreters or outputs may be desired so they are triggered using events.
 
 ### Detect Hand Pose
 
@@ -46,9 +48,8 @@ Uses Oculus SDK to map specific hand poses (represented using manually programme
 
 It also uses a TransformRecognizerActiveState to add pre-conditions before the hand poses. This improves differentiation between similar hand poses.
 
-#### Future Improvements
+It uses the 'Selector Unity Event Wrapper' component to detect and send a message to the Interpretation phase.
 
-* Using a JointVelocityActiveState or chaining multiple TransformRecognizerActiveStates together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. Quote gesture.
 
 ### Convert to Symbolic Textual Representation
 
@@ -57,6 +58,8 @@ Catches the Detect Hand Pose's "known hand pose detected" event to interpret the
 This will only be able to convert the detected hand poses to singular/discrete symbols so more nuanced representation would be desirable.
 
 #### Future Improvements
+
+* Using a JointVelocityActiveState or chaining multiple detected poses together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. 'J' or 'Z' ASL letters.
 
 * For ASL alphabet, chaining multiple letters should allow for the creation of words as checked against a dictionary. This will be required for the conversion of text to speech in a usable manner.
 
