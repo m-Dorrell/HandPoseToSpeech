@@ -25,11 +25,11 @@ MonoBehaviour:
       _secondState: 2
   - _feature: 1
     _thresholds:
-    - _thresholdMidpoint: 185
+    - _thresholdMidpoint: 190
       _thresholdWidth: 6
       _firstState: 3
       _secondState: 4
-    - _thresholdMidpoint: 193
+    - _thresholdMidpoint: 230
       _thresholdWidth: 6
       _firstState: 4
       _secondState: 5
@@ -53,4 +53,4 @@ MonoBehaviour:
       _thresholdWidth: 0.01
       _firstState: 10
       _secondState: 11
-  _minTimeInState: 0.022
+  _minTimeInState: 0.5

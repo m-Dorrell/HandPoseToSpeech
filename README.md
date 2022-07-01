@@ -5,9 +5,9 @@ Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and outpu
 
 | Feature | Current State | Goal State | Is Achieved |
 |--|--|--|--|
-| Detect Hand Pose | Can detect static hand poses (thumbs up and peace signs) | Can detect all basic ASL alphabet signs | NO |
-| Convert to Symbolic Textual Representation | Direct conversion from detected hand pose to text manually | Middleware layer receives detection events, interpreting them and passing the interpretation as another event | NO |
-| Text-To-Speech | Null | Converts letters and words to speech | NO |
+| Detect Hand Pose | Can detect static hand poses some of the time for most ASL alphabet signs (excluding 'J' and 'Z') | Can detect all basic ASL alphabet signs with reasonable accuracy | NO |
+| Convert to Symbolic Textual Representation | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | YES |
+| Text-To-Speech | Only displays interpretation visually on a screen | Converts letters and words to speech | NO |
 
 ## How to Use
 
@@ -44,25 +44,32 @@ Multiple interpreters or outputs may be desired so they are triggered using even
 
 ### Detect Hand Pose
 
-Uses Oculus SDK to map specific hand poses (represented using manually programmed ShapeRecognizer objects) to trigger (via ShapeRecognizerActiveState objects) an event represnting detection of a known hand pose.
+Uses Oculus SDK to map specific hand poses (represented using manually programmed ShapeRecognizer objects) to trigger (via ShapeRecognizerActiveState objects) an event representing detection of a known hand pose.
 
-It also uses a TransformRecognizerActiveState to add pre-conditions before the hand poses. This improves differentiation between similar hand poses.
+It also uses a TransformRecognizerActiveState to add pre-conditions to the hand poses. This improves differentiation between similar hand poses and ensures they must appear realistic in orientation.
 
-It uses the 'Selector Unity Event Wrapper' component to detect and send a message to the Interpretation phase.
-
+It uses the 'Selector Unity Event Wrapper' component to detect and send a String message to the Interpretation phase.
 
 ### Convert to Symbolic Textual Representation
 
-Catches the Detect Hand Pose's "known hand pose detected" event to interpret the meaning of the hand pose and trigger another event which will pass on the interpreted meaning.
+Receives a String when trigggered from the 'Selector Unity Event Wrapper' function's execution upon a registered hand pose being detected that uniquely identifies that registered hand pose. *Note: There is no safety check for multiple unique poses with the same detection signature*
 
-This will only be able to convert the detected hand poses to singular/discrete symbols so more nuanced representation would be desirable.
+Interprets the meaning of the String and triggers an event to pass on the interpreted meaning.
+
+*Note: This is only be able to convert the detected hand pose to singular/discrete symbols so more nuanced representation would be desirable. This is why it is implemented as an intermediate layer so that it can be extended to interpret compound hand gestures e.g. 'J' or 'Z'*
 
 #### Future Improvements
 
-* Using a JointVelocityActiveState or chaining multiple detected poses together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. 'J' or 'Z' ASL letters.
+* Using a JointVelocityActiveState, JointRotationActiveState and/or Seqeuences to chain multiple detected poses together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. 'J' or 'Z' ASL letters.
 
-* For ASL alphabet, chaining multiple letters should allow for the creation of words as checked against a dictionary. This will be required for the conversion of text to speech in a usable manner.
+* For ASL alphabet, chaining multiple letters should allow for the creation of words with pauses demarcating the end of words. This will be required for the conversion of text to speech in a usable manner.
 
 ### Text-To-Speech
 
-Catches the Convert to Symbolic Textual Representation's "meaning of detected hand pose" event to determine the correct text which will then be converted to speech.
+Receives the interpreted meaning as a String and outputs the meaning somewhere.
+
+The text-to-speech implementation will convert received Letters or Words to strings and will produce them as sound.
+
+## Accuracy
+
+Some hand poses are easier to detect than others, but all can be detected within ~3 attempts. This will be investigated further to determine how to differentiate similar hand signs.
