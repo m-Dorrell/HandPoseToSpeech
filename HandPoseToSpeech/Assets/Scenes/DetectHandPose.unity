@@ -409,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hand: {fileID: 56795381}
   _shapes:
-  - {fileID: 11400000, guid: c62079d562b268c48ae8c68ae33d8a0a, type: 2}
+  - {fileID: 11400000, guid: 3cc7ad809ab685f4ebdeb408fdf0a840, type: 2}
 --- !u!114 &56795381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &212127061
 Transform:
   m_ObjectHideFlags: 0
@@ -868,11 +868,14 @@ MonoBehaviour:
   _transformFeatureConfigs:
     _values:
     - _mode: 0
-      _feature: 5
-      _state: 15
-    - _mode: 0
       _feature: 6
       _state: 18
+    - _mode: 0
+      _feature: 4
+      _state: 14
+    - _mode: 0
+      _feature: 5
+      _state: 17
   _transformConfig:
     PositionOffset: {x: 0, y: 0, z: 0}
     RotationOffset: {x: 0, y: 0, z: 0}
@@ -916,7 +919,7 @@ PrefabInstance:
     - target: {fileID: 793675182333196423, guid: 4b8a7a9b6cd7ab64d8c0202c46aed437, type: 3}
       propertyPath: _shapeRecognizerActiveState
       value: 
-      objectReference: {fileID: 1465202654}
+      objectReference: {fileID: 361706532}
     - target: {fileID: 2029026043101924598, guid: 4b8a7a9b6cd7ab64d8c0202c46aed437, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2290,7 +2293,7 @@ PrefabInstance:
     - target: {fileID: 4536272112822725198, guid: 1655dfcb8fc5f2b468db636edf92c279, type: 3}
       propertyPath: _transformRecognizerActiveStates.Array.data[0]
       value: 
-      objectReference: {fileID: 1465202653}
+      objectReference: {fileID: 361706531}
     - target: {fileID: 6690102857349407991, guid: 1655dfcb8fc5f2b468db636edf92c279, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3120,7 +3123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hand: {fileID: 1037382987}
   _shapes:
-  - {fileID: 11400000, guid: 4cdbe7337311bf0438823b34108fa600, type: 2}
+  - {fileID: 11400000, guid: cbcaa761b808ef6459f50289d0a79a0c, type: 2}
 --- !u!114 &1037382987
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,9 @@ MonoBehaviour:
     - _mode: 0
       _feature: 0
       _state: 2
+    - _mode: 0
+      _feature: 1
+      _state: 5
   _indexFeatureConfigs:
     _value:
     - _mode: 0
