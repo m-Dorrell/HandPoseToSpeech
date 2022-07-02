@@ -6,12 +6,14 @@ using UnityEngine;
 namespace HandPoseToSpeech
 {
     /// <summary>
-    /// Receives a message and interprets its meaning
+    /// Receives a detection and tries to build words from it
     /// </summary>
-    public class InterpretationManager : MonoBehaviour
+    public class InterpretAsWordsManager : MonoBehaviour
     {
         [SerializeField]
         protected DetectionManager detectionManager;  // Which detection to listen to
+
+        private string word = "";
 
         protected void Start()
         {
