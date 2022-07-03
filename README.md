@@ -7,7 +7,7 @@ Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and outpu
 |--|--|--|--|
 | Detect Hand Pose | Can detect static hand poses some of the time for most ASL alphabet signs (excluding 'J' and 'Z') | Can detect all basic ASL alphabet signs with reasonable accuracy | NO |
 | Convert to Symbolic Textual Representation | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | YES |
-| Text-To-Speech | Only displays interpretation visually on a screen | Converts letters and words to speech | NO |
+| Text-To-Speech | Prints current letter and in-progress sentence as text and converts final message to speech | Converts letters and words to speech | YES |
 
 ## How to Use
 
@@ -48,27 +48,53 @@ Uses Oculus SDK to map specific hand poses (represented using manually programme
 
 It also uses a TransformRecognizerActiveState to add pre-conditions to the hand poses. This improves differentiation between similar hand poses and ensures they must appear realistic in orientation.
 
-It uses the 'Selector Unity Event Wrapper' component to detect and send a String message to the Interpretation phase.
+#### DetectorManager
 
-### Convert to Symbolic Textual Representation
+Base class that is triggered by the 'Selector Unity Event Wrapper' function in each hand pose to trigger an event that will be sent to all 'Interpretors'.
 
-Receives a String when trigggered from the 'Selector Unity Event Wrapper' function's execution upon a registered hand pose being detected that uniquely identifies that registered hand pose. *Note: There is no safety check for multiple unique poses with the same detection signature*
-
-Interprets the meaning of the String and triggers an event to pass on the interpreted meaning.
-
-*Note: This is only be able to convert the detected hand pose to singular/discrete symbols so more nuanced representation would be desirable. This is why it is implemented as an intermediate layer so that it can be extended to interpret compound hand gestures e.g. 'J' or 'Z'*
+This implementation allows for multiple interpreters to read events from a single detector.
 
 #### Future Improvements
 
 * Using a JointVelocityActiveState, JointRotationActiveState and/or Seqeuences to chain multiple detected poses together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. 'J' or 'Z' ASL letters.
 
-* For ASL alphabet, chaining multiple letters should allow for the creation of words with pauses demarcating the end of words. This will be required for the conversion of text to speech in a usable manner.
+### Convert to Symbolic Textual Representation
+
+Receives a String from the 'Detector' event upon a registered hand pose being detected that uniquely identifies that registered hand pose. *Note: There is no safety check for multiple unique poses with the same detection signature.*
+
+Interprets the meaning of the String and triggers an event to pass on the interpreted meaning.
+
+#### InterpretationManager
+
+Base class that sends the letter information through to the output.
+
+#### InterpretAsWordsManager
+
+Interprets the incoming letters as an attempt to build a sentence and identifies words/completed sentences with timeouts.
+
+Can send the interpretation in-progress (e.g. for visually showing the sentence being generated) or only at the end (e.g. for speaking only once the sentence is completed).
+
+#### Future Improvements
+
+* Using a dictionary/autocorrect to fix mistakes in gesturing words
 
 ### Text-To-Speech
 
 Receives the interpreted meaning as a String and outputs the meaning somewhere.
 
-The text-to-speech implementation will convert received Letters or Words to strings and will produce them as sound.
+The text-to-speech implementation will converts the message to audio to be played aloud.
+
+#### OutputManager
+
+Base class that outputs to nowhere.
+
+#### OutputToTextManager
+
+Outputs message to a TextPro object.
+
+#### OutputToSpeechManager
+
+Outputs message as audio.
 
 ## Accuracy
 

@@ -1,0 +1,10 @@
+function: espeak_Initialize
+from DLL: libespeak-ng.dll
+  at path: C:/Users/micha/Documents/GitHub/HandPoseToSpeech/HandPoseToSpeech/Assets/UnityRuntimeTextToSpeech/Plugins/espeak/__libespeak-ng.dll
+arguments: 
+  0: Retrieval
+  1: 0
+  2: "C:/Users/micha/Documents/GitHub/HandPoseToSpeech/HandPoseToSpeech/Assets/StreamingAssets/espeak-ng-data/"
+  3: 0
+thread: unity main thread
+call index: 0

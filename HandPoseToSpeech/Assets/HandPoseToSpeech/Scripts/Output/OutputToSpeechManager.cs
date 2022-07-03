@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityLibrary;
 
 namespace HandPoseToSpeech
 {
@@ -9,6 +10,8 @@ namespace HandPoseToSpeech
     /// </summary>
     public class OutputToSpeechManager : OutputManager
     {
+        [SerializeField]
+        private AudioSource source;
 
         protected new void Start()
         {
@@ -16,14 +19,19 @@ namespace HandPoseToSpeech
         }
 
         /// <summary>
-        /// Print the interpret event to the screen
+        /// Speak the message
         /// </summary>
         /// <param name="message">A message indicating the event that was triggered</param>
         protected override void ReceiveInterpretationEvent(string message)
         {
-            /*#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-            #endif*/
-            WindowsVoice.speak(message);
+            Debug.Log(message);
+            Speech.instance.Say(message, TTSCallback);
+        }
+
+        void TTSCallback(string message, AudioClip audio)
+        {
+            source.clip = audio;
+            source.Play();
         }
     }
 }
