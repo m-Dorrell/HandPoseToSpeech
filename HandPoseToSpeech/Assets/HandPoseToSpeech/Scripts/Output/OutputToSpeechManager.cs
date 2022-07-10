@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityLibrary;
+//using UnityLibrary;
 
 namespace HandPoseToSpeech
 {
@@ -25,13 +25,13 @@ namespace HandPoseToSpeech
         protected override void ReceiveInterpretationEvent(string message)
         {
             Debug.Log(message);
-            Speech.instance.Say(message, TTSCallback);
+            //Speech.instance.Say(message, TTSCallback);
         }
 
-        void TTSCallback(string message, AudioClip audio)
+        /*void TTSCallback(string message, AudioClip audio)
         {
             source.clip = audio;
             source.Play();
-        }
+        }*/
     }
 }

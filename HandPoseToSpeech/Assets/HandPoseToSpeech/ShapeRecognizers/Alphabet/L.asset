@@ -37,6 +37,9 @@ MonoBehaviour:
     - _mode: 1
       _feature: 0
       _state: 0
+    - _mode: 1
+      _feature: 3
+      _state: 9
   _ringFeatureConfigs:
     _value:
     - _mode: 1

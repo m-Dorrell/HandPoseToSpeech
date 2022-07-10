@@ -1,11 +1,13 @@
 # HandPoseToSpeech
 Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and output as speech.
 
+*Note: The text-to-speech component currently only works for Windows, not the Android .apk which runs native on the Oculus Quest 2. Will work only over airlink through the Unity editor or a Windows build.*
+
 ## Current State
 
 | Feature | Current State | Goal State | Is Achieved |
 |--|--|--|--|
-| Detect Hand Pose | Can detect static hand poses some of the time for most ASL alphabet signs (excluding 'J' and 'Z') | Can detect all basic ASL alphabet signs with reasonable accuracy | NO |
+| Detect Hand Pose | Can detect static hand poses some of the time for all ASL alphabet signs | Can detect all basic ASL alphabet signs with reasonable accuracy | YES |
 | Convert to Symbolic Textual Representation | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | YES |
 | Text-To-Speech | Prints current letter and in-progress sentence as text and converts final message to speech | Converts letters and words to speech | YES |
 
@@ -98,4 +100,4 @@ Outputs message as audio.
 
 ## Accuracy
 
-Some hand poses are easier to detect than others, but all can be detected within ~3 attempts. This will be investigated further to determine how to differentiate similar hand signs.
+Some hand poses are easier to detect than others, but all can be detected.

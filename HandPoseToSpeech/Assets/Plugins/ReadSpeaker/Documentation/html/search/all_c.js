@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['samplerate_0',['sampleRate',['../classReadSpeaker_1_1TTSEngine.html#a7eea6dec11425c611b1af138a14bdd35',1,'ReadSpeaker::TTSEngine']]],
+  ['say_1',['Say',['../classReadSpeaker_1_1TTS.html#a57defe0b89c7bc40ffbf7a075f064bff',1,'ReadSpeaker.TTS.Say(string text, TTSSpeechCharacteristics characteristics, AudioSource audioSource, TextType textType=TextType.Normal, bool playOneShot=false)'],['../classReadSpeaker_1_1TTS.html#a0dbbc6e99f8a1a91f9006850a6548927',1,'ReadSpeaker.TTS.Say(string text, TTSSpeaker speaker, TextType textType=TextType.Normal, bool playOneShot=false)'],['../classReadSpeaker_1_1TTS.html#acc77476ffb32f3831ff50112afe027a8',1,'ReadSpeaker.TTS.Say(string text, TextType textType=TextType.Normal, bool playOneShot=false)']]],
+  ['sayasync_2',['SayAsync',['../classReadSpeaker_1_1TTS.html#a3775b13824e34ef6d4d01f7f85434cea',1,'ReadSpeaker.TTS.SayAsync(string text, TTSSpeechCharacteristics characteristics, AudioSource audioSource, TextType textType=TextType.Normal, bool playOneShot=false, MonoBehaviour monoBehaviour=null)'],['../classReadSpeaker_1_1TTS.html#a46340f3e1fa95eecfec5492f6b03402d',1,'ReadSpeaker.TTS.SayAsync(string text, TTSSpeaker speaker, TextType textType=TextType.Normal, bool playOneShot=false)'],['../classReadSpeaker_1_1TTS.html#af759a20e8e01fc1807ccb08c5265c14c',1,'ReadSpeaker.TTS.SayAsync(string text, TextType textType=TextType.Normal, bool playOneShot=false)']]],
+  ['speed_3',['Speed',['../classReadSpeaker_1_1TTSConverter.html#a7390e6a2562022f0d660494dcc91d90a',1,'ReadSpeaker::TTSConverter']]],
+  ['ssml_4',['SSML',['../namespaceReadSpeaker.html#af573724d43669ff4425e121724567b48a05e1b4dfd670c946eb26b7f6a8f51759',1,'ReadSpeaker.SSML()'],['../ssml.html',1,'index']]]
+];

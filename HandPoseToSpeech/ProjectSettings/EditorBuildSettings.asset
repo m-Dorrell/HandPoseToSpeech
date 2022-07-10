@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/WordsToSpeech.unity
+    guid: 45857ab7bac9cb349ad525f6ff742b58
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 7a0bca33d96a5114a974d1925506bb1e, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 7875282a27bcfff4fb3ca72d4508e70b, type: 2}
