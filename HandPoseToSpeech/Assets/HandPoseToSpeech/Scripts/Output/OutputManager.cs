@@ -5,23 +5,22 @@ using UnityEngine;
 namespace HandPoseToSpeech
 {
     /// <summary>
-    /// Receives information about what to output and does so
+    /// Receives information about meaning of signs and output meaning
     /// </summary>
     public class OutputManager : MonoBehaviour
     {
         [SerializeField]
-        protected InterpretationManager interpretationManager;  // Which interpretation to listen to
+        protected InterpretationManager interpretationManager;  // Which interpretation manager to listen to
 
         protected void Start()
         {
-            // Listen to OnInterpretationEvent and assign proper response
             interpretationManager.OnInterpretationEvent += ReceiveInterpretationEvent;
         }
 
         /// <summary>
-        /// Receive a detect event indicating the Shape Recognizer and/or Transformer Recognizer has been activated
+        /// Receive an interpretation event
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating the meaning of the event(s) that was/were triggered</param>
         protected virtual void ReceiveInterpretationEvent(string message)
         {
             return;

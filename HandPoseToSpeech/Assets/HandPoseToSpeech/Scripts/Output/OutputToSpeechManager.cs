@@ -1,37 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityLibrary;
+using ReadSpeaker;
 
 namespace HandPoseToSpeech
 {
     /// <summary>
-    /// Receives information about what to output and does so
+    /// Receives information about meaning of signs and output meaning as speech
     /// </summary>
     public class OutputToSpeechManager : OutputManager
     {
         [SerializeField]
-        private AudioSource source;
+        private TTSSpeaker speaker;
 
         protected new void Start()
         {
             base.Start();
+            TTS.Init();  // Initialize text-to-speech package
         }
 
         /// <summary>
-        /// Speak the message
+        /// Receive an interpretation event and output the message as speech
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating the meaning of the event(s) that was/were triggered</param>
         protected override void ReceiveInterpretationEvent(string message)
         {
-            Debug.Log(message);
-            //Speech.instance.Say(message, TTSCallback);
+            TTS.SayAsync(message, speaker);
         }
-
-        /*void TTSCallback(string message, AudioClip audio)
-        {
-            source.clip = audio;
-            source.Play();
-        }*/
     }
 }

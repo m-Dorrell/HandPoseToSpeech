@@ -7,24 +7,24 @@ namespace HandPoseToSpeech
 {
     /// <summary>
     /// Receives a message and interprets its meaning
+    /// Sends the meaning out as an event
     /// </summary>
     public class InterpretationManager : MonoBehaviour
     {
         [SerializeField]
-        protected DetectionManager detectionManager;  // Which detection to listen to
+        protected DetectionManager detectionManager;  // Which detection manager to listen to
 
         public event Action<string> OnInterpretationEvent;
 
         protected void Start()
         {
-            // Listen to OnDetectionEvent and assign proper response
             detectionManager.OnDetectionEvent += ReceiveDetectionEvent;
         }
 
         /// <summary>
-        /// Receive a detect event indicating the Shape Recognizer and/or Transformer Recognizer has been activated
+        /// Receive a detect event and pass along the message
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating what was detected</param>
         protected virtual void ReceiveDetectionEvent(string message)
         {
             OnInterpretationEvent?.Invoke(message);

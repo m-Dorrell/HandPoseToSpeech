@@ -6,12 +6,12 @@ using UnityEngine;
 namespace HandPoseToSpeech
 {
     /// <summary>
-    /// Receives information about what to output and does so
+    /// Receives information about meaning of signs and output meaning as text to a TextMeshPro object
     /// </summary>
     public class OutputToTextManager : OutputManager
     { 
         [SerializeField]
-        private TextMeshPro textMeshPro;  // A text to update visibly
+        private TextMeshPro textMeshPro;  // Visible text
 
         protected new void Start()
         {
@@ -19,9 +19,9 @@ namespace HandPoseToSpeech
         }
 
         /// <summary>
-        /// Print the interpret event to the screen
+        /// Receive an interpretation event and output the message as speech
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating the meaning of the event(s) that was/were triggered</param>
         protected override void ReceiveInterpretationEvent(string message)
         {
             textMeshPro.text = message;

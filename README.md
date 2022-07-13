@@ -1,15 +1,13 @@
 # HandPoseToSpeech
 Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and output as speech.
 
-*Note: The text-to-speech component currently only works for Windows, not the Android .apk which runs native on the Oculus Quest 2. Will work only over airlink through the Unity editor or a Windows build.*
-
 ## Current State
 
 | Feature | Current State | Goal State | Is Achieved |
 |--|--|--|--|
 | Detect Hand Pose | Can detect static hand poses some of the time for all ASL alphabet signs | Can detect all basic ASL alphabet signs with reasonable accuracy | YES |
-| Convert to Symbolic Textual Representation | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | YES |
-| Text-To-Speech | Prints current letter and in-progress sentence as text and converts final message to speech | Converts letters and words to speech | YES |
+| Convert to Symbolic Textual Representation | Intermediate layer sends detection events, interprets & sends the meaning as an event, and outputs the meaning | Intermediate layer receives detection events, interpreting them and passing the interpretation as another event | YES |
+| Text-To-Speech | Prints current letter and in-progress sentence as text then converts final message to speech. Demarcates work words and sentences with pauses. | Converts letters and words to speech | YES |
 
 ## How to Use
 
@@ -24,7 +22,7 @@ Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and outpu
 ### How to Build
 
 1. Download Unity 2020.3.33f1
-1. Download the Android module with NDK and SDK
+1. Download the Android Unity module with NDK and SDK
 1. Open the Unity project in ./HandPoseToSpeech
 1. Click 'File -> Build Settings' then ensure the scene you wish to build is included and the platform is 'Android'
 1. Click build and choose a folder for the .apk to build to
@@ -36,7 +34,7 @@ Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and outpu
 
 Detect Hand Pose -> Convert to Symbolic Textual Representation -> Text-To-Speech
 
-This architecture should be modular so that alternative methods can easily be added in. Therefore superclasses will be created to match each stage:
+This architecture is modular so that alternative methods can easily be added in. Therefore superclasses have been created to match each stage:
 
 1. Detection
 1. Interpretation
@@ -46,19 +44,19 @@ Multiple interpreters or outputs may be desired so they are triggered using even
 
 ### Detect Hand Pose
 
-Uses Oculus SDK to map specific hand poses (represented using manually programmed ShapeRecognizer objects) to trigger (via ShapeRecognizerActiveState objects) an event representing detection of a known hand pose.
+Uses Oculus SDK to map specific hand poses (represented using manually programmed ShapeRecognizer objects) to trigger (via ShapeRecognizerActiveState objects) an event representing detection of a known hand pose. It also uses a TransformRecognizerActiveState to add pre-conditions to the hand poses. This improves differentiation between similar hand poses and ensures they must appear realistic in orientation.
 
-It also uses a TransformRecognizerActiveState to add pre-conditions to the hand poses. This improves differentiation between similar hand poses and ensures they must appear realistic in orientation.
+The 'J' letter uses a 'Sequence' to identify the start and end parts of the sign.
+*Note: This doesn't require the movement to be accurate so could be improved in the future by requiring passing through intermediary stages.*
+
+The 'Z' letter triggers an invisible sphere collider to appear and move with the sign to ensure the user is making a 'Z' motion.
+*Note: A 'reset' should be added if the user stops part way as it requires the full motion to be used.*
 
 #### DetectorManager
 
 Base class that is triggered by the 'Selector Unity Event Wrapper' function in each hand pose to trigger an event that will be sent to all 'Interpretors'.
 
 This implementation allows for multiple interpreters to read events from a single detector.
-
-#### Future Improvements
-
-* Using a JointVelocityActiveState, JointRotationActiveState and/or Seqeuences to chain multiple detected poses together to recognize movement. This will allow for hand gestures that require movement to be detected e.g. 'J' or 'Z' ASL letters.
 
 ### Convert to Symbolic Textual Representation
 
@@ -76,6 +74,8 @@ Interprets the incoming letters as an attempt to build a sentence and identifies
 
 Can send the interpretation in-progress (e.g. for visually showing the sentence being generated) or only at the end (e.g. for speaking only once the sentence is completed).
 
+*Note: The default timeout is 4 seconds to build a word and 8 seconds to end a sentence*
+
 #### Future Improvements
 
 * Using a dictionary/autocorrect to fix mistakes in gesturing words
@@ -83,8 +83,6 @@ Can send the interpretation in-progress (e.g. for visually showing the sentence 
 ### Text-To-Speech
 
 Receives the interpreted meaning as a String and outputs the meaning somewhere.
-
-The text-to-speech implementation will converts the message to audio to be played aloud.
 
 #### OutputManager
 
@@ -96,8 +94,14 @@ Outputs message to a TextPro object.
 
 #### OutputToSpeechManager
 
-Outputs message as audio.
+Outputs message as audio using the ReadSpeaker plugin.
 
 ## Accuracy
 
 Some hand poses are easier to detect than others, but all can be detected.
+
+## Acknowledgements
+
+Big thank you to [ReadSpeaker](https://www.readspeaker.com/) for assisting me with using their text-to-speech library on the Oculus Quest 2.
+
+Thanks to Meta & Oculus for developing the Quest 2 headset and Unity Oculus SDK that allows for the development of applications like this.

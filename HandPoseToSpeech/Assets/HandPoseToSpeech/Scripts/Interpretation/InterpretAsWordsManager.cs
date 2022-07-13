@@ -7,6 +7,7 @@ namespace HandPoseToSpeech
 {
     /// <summary>
     /// Receives a detection and tries to build words from it
+    /// Sends the meaning out as an event
     /// </summary>
     public class InterpretAsWordsManager : InterpretationManager
     {
@@ -25,9 +26,9 @@ namespace HandPoseToSpeech
         }
 
         /// <summary>
-        /// Receive a detect event indicating the Shape Recognizer and/or Transformer Recognizer has been activated
+        /// Receive a detect event and build a word then pass the message along
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating what was detected</param>
         protected override void ReceiveDetectionEvent(string message)
         {
             // Cancel creating sentence if new word detected
@@ -37,10 +38,10 @@ namespace HandPoseToSpeech
                 CancelInvoke("CreateSentence");
             }
 
-            // Add to string
+            // Add message to string
             builtString += message;
 
-            // Send message incrementally
+            // Send built sentence incrementally
             if (sendInProgress)
             {
                 base.ReceiveDetectionEvent(builtString);

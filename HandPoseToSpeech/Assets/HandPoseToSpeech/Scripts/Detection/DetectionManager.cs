@@ -6,16 +6,16 @@ using UnityEngine;
 namespace HandPoseToSpeech
 {
     /// <summary>
-    /// Receives a message and interprets its meaning
+    /// Triggers a detection event
     /// </summary>
     public class DetectionManager : MonoBehaviour
     {
         public event Action<string> OnDetectionEvent;
 
         /// <summary>
-        /// Receive a detect event indicating the Shape Recognizer and/or Transformer Recognizer has been activated
+        /// Function to catch an Oculus detection event indicating the Shape Recognizer and/or Transformer Recognizer has been activated
         /// </summary>
-        /// <param name="message">A message indicating the event that was triggered</param>
+        /// <param name="message">A message indicating what was detected</param>
         public void ReceiveDetectEvent(string message)
         {
             OnDetectionEvent?.Invoke(message);
