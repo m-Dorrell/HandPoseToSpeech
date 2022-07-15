@@ -1,6 +1,11 @@
 # HandPoseToSpeech
 Using Hand Pose Detection on an Oculus Quest 2 to detect hand gestures and output as speech.
 
+| Demo | Link |
+|--|--|
+| Hello World Demo | [![Hello World Demo Link](https://img.youtube.com/vi/AwRV_NDzUMU/0.jpg)](https://www.youtube.com/watch?v=AwRV_NDzUMU) |
+| Full Alphabet Demo | [![Full Alphabet Demo Link](https://img.youtube.com/vi/Gwr927PJszo/0.jpg)](https://www.youtube.com/watch?v=Gwr927PJszo) |
+
 ## Current State
 
 | Feature | Current State | Goal State | Is Achieved |
